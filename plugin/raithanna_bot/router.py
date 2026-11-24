@@ -266,43 +266,43 @@ async def execute_feature_action(
 
         if is_kn:
             reply = (
-                f"🧪 **ಮಣ್ಣು ಪರೀಕ್ಷೆ ವರದಿ ವಿಶ್ಲೇಷಣೆ (Soil Health Card Analysis - {district}):**\n\n"
-                f"• **ಮಣ್ಣಿನ pH:** `{ph_val:.1f}` — {ph_status}\n"
-                f"• **ಸಾರಜನಕ (N):** `{n_val:.1f} kg/ha` — {n_status}\n"
-                f"• **ರಂಜಕ (P):** `{p_val:.1f} kg/ha` — {p_status}\n"
-                f"• **ಪೊಟ್ಯಾಷ್ (K):** `{k_val:.1f} kg/ha` — {k_status}\n"
-                f"• **ಸಾವಯವ ಇಂಗಾಲ (OC):** `{oc_val:.2f}%` — {oc_status}\n\n"
-                f"💡 **ವಿಶ್ವವಿದ್ಯಾಲಯ (UAS) ಶಿಫಾರಸು ಮಾಡಿದ ಗೊಬ್ಬರದ ಪ್ರಮಾಣ:**\n"
-                f"1. **ಬಿತ್ತನೆಗೆ ಮುನ್ನ:** ಎಕರೆಗೆ 2 ಟನ್ ಕಾಂಪೋಸ್ಟ್ ಅಥವಾ ಕೊಟ್ಟಿಗೆ ಗೊಬ್ಬರ ಹಾಕಿ ಸಾವಯವ ಇಂಗಾಲ ಹೆಚ್ಚಿಸಿ.\n"
-                f"2. **ರಂಜಕ ಪೂರೈಕೆ:** {'ಎಕರೆಗೆ 50 ಕೆ.ಜಿ DAP ಅಥವಾ 150 ಕೆ.ಜಿ SSP ಬಳಸಿ.' if p_val < 30 else 'ಸಾಧಾರಣ ರಂಜಕ ಸಾಕು.'}\n"
-                f"3. **ಸಾರಜನಕ ಪೂರೈಕೆ:** {'ಯೂರಿಯಾ 60-70 ಕೆ.ಜಿ (2 ಕಂತುಗಳಲ್ಲಿ).' if n_val < 350 else 'ಯೂರಿಯಾ 40 ಕೆ.ಜಿ ಸಾಕು.'}\n"
-                f"{'4. **ಸುಣ್ಣದ ಬಳಕೆ:** ಮಣ್ಣು ಆಮ್ಲೀಯವಾಗಿರುವುದರಿಂದ ಎಕರೆಗೆ 150-200 ಕೆ.ಜಿ ಕೃಷಿ ಸುಣ್ಣ ಬೆರೆಸಿ.' if ph_val < 6.0 else ''}"
+                f"[ಮಣ್ಣು ಪರೀಕ್ಷೆ ವರದಿ ವಿಶ್ಲೇಷಣೆ]: {district} ಜಿಲ್ಲೆ\n\n"
+                f"• ಮಣ್ಣಿನ pH: {ph_val:.1f} — {ph_status}\n"
+                f"• ಸಾರಜನಕ (N): {n_val:.1f} kg/ha — {n_status}\n"
+                f"• ರಂಜಕ (P): {p_val:.1f} kg/ha — {p_status}\n"
+                f"• ಪೊಟ್ಯಾಷ್ (K): {k_val:.1f} kg/ha — {k_status}\n"
+                f"• ಸಾವಯವ ಇಂಗಾಲ (OC): {oc_val:.2f}% — {oc_status}\n\n"
+                f"[ವಿಶ್ವವಿದ್ಯಾಲಯ (UAS) ಶಿಫಾರಸು ಮಾಡಿದ ಗೊಬ್ಬರದ ಪ್ರಮಾಣ]:\n"
+                f"1. ಬಿತ್ತನೆಗೆ ಮುನ್ನ: ಎಕರೆಗೆ 2 ಟನ್ ಕಾಂಪೋಸ್ಟ್ ಅಥವಾ ಕೊಟ್ಟಿಗೆ ಗೊಬ್ಬರ ಹಾಕಿ ಸಾವಯವ ಇಂಗಾಲ ಹೆಚ್ಚಿಸಿ.\n"
+                f"2. ರಂಜಕ ಪೂರೈಕೆ: {'ಎಕರೆಗೆ 50 ಕೆ.ಜಿ DAP ಅಥವಾ 150 ಕೆ.ಜಿ SSP ಬಳಸಿ.' if p_val < 30 else 'ಸಾಧಾರಣ ರಂಜಕ ಸಾಕು.'}\n"
+                f"3. ಸಾರಜನಕ ಪೂರೈಕೆ: {'ಯೂರಿಯಾ 60-70 ಕೆ.ಜಿ (2 ಕಂತುಗಳಲ್ಲಿ).' if n_val < 350 else 'ಯೂರಿಯಾ 40 ಕೆ.ಜಿ ಸಾಕು.'}\n"
+                f"{'4. ಸುಣ್ಣದ ಬಳಕೆ: ಮಣ್ಣು ಆಮ್ಲೀಯವಾಗಿರುವುದರಿಂದ ಎಕರೆಗೆ 150-200 ಕೆ.ಜಿ ಕೃಷಿ ಸುಣ್ಣ ಬೆರೆಸಿ.' if ph_val < 6.0 else ''}"
             )
         elif is_hi:
             reply = (
-                f"🧪 **मृदा परीक्षण रिपोर्ट विश्लेषण (Soil Health Card Analysis - {district}):**\n\n"
-                f"• **पीएच (pH):** `{ph_val:.1f}` — {ph_status}\n"
-                f"• **नाइट्रोजन (N):** `{n_val:.1f} kg/ha` — {n_status}\n"
-                f"• **फास्फोरस (P):** `{p_val:.1f} kg/ha` — {p_status}\n"
-                f"• **पोटाश (K):** `{k_val:.1f} kg/ha` — {k_status}\n"
-                f"• **जैविक कार्बन (OC):** `{oc_val:.2f}%` — {oc_status}\n\n"
-                f"💡 **कृषि विश्वविद्यालय (UAS) अनुशंसित उर्वरक मात्रा:**\n"
-                f"1. **बुवाई पूर्व:** प्रति एकड़ 2 टन गोबर की खाद या कम्पोस्ट डालें।\n"
-                f"2. **डीएपी/यूरिया:** डीएपी 50 किग्रा तथा यूरिया 40-50 किग्रा दो भागों में दें।"
+                f"[मृदा परीक्षण रिपोर्ट विश्लेषण]: {district} जिला\n\n"
+                f"• पीएच (pH): {ph_val:.1f} — {ph_status}\n"
+                f"• नाइट्रोजन (N): {n_val:.1f} kg/ha — {n_status}\n"
+                f"• फास्फोरस (P): {p_val:.1f} kg/ha — {p_status}\n"
+                f"• पोटाश (K): {k_val:.1f} kg/ha — {k_status}\n"
+                f"• जैविक कार्बन (OC): {oc_val:.2f}% — {oc_status}\n\n"
+                f"[कृषि विश्वविद्यालय (UAS) अनुशंसित उर्वरक मात्रा]:\n"
+                f"1. बुवाई पूर्व: प्रति एकड़ 2 टन गोबर की खाद या कम्पोस्ट डालें।\n"
+                f"2. डीएपी/यूरिया: डीएपी 50 किग्रा तथा यूरिया 40-50 किग्रा दो भागों में दें।"
             )
         else:
             reply = (
-                f"🧪 **Soil Health Card Report Interpretation ({district}):**\n\n"
-                f"• **Soil pH:** `{ph_val:.1f}` — {ph_status}\n"
-                f"• **Available Nitrogen (N):** `{n_val:.1f} kg/ha` — {n_status}\n"
-                f"• **Available Phosphorus (P):** `{p_val:.1f} kg/ha` — {p_status}\n"
-                f"• **Available Potassium (K):** `{k_val:.1f} kg/ha` — {k_status}\n"
-                f"• **Organic Carbon (OC):** `{oc_val:.2f}%` — {oc_status}\n\n"
-                f"💡 **UAS Agronomic Fertilizer Recommendation:**\n"
-                f"1. **Basal Application:** 2 tonnes Farmyard Manure (FYM) per acre.\n"
-                f"2. **Phosphorus:** {'Apply 50 kg DAP or 150 kg SSP per acre.' if p_val < 30 else 'Maintain standard balanced P application.'}\n"
-                f"3. **Nitrogen:** {'Apply Urea 65 kg/acre in 2 splits.' if n_val < 350 else 'Apply Urea 45 kg/acre.'}\n"
-                f"{'4. **Soil Amendment:** Apply Agricultural Lime @ 200 kg/acre to correct acidity.' if ph_val < 6.0 else ''}"
+                f"[Soil Health Card Interpretation]: {district} District\n\n"
+                f"• Soil pH: {ph_val:.1f} — {ph_status}\n"
+                f"• Available Nitrogen (N): {n_val:.1f} kg/ha — {n_status}\n"
+                f"• Available Phosphorus (P): {p_val:.1f} kg/ha — {p_status}\n"
+                f"• Available Potassium (K): {k_val:.1f} kg/ha — {k_status}\n"
+                f"• Organic Carbon (OC): {oc_val:.2f}% — {oc_status}\n\n"
+                f"[UAS Agronomic Fertilizer Recommendation]:\n"
+                f"1. Basal Application: 2 tonnes Farmyard Manure (FYM) per acre.\n"
+                f"2. Phosphorus: {'Apply 50 kg DAP or 150 kg SSP per acre.' if p_val < 30 else 'Maintain standard balanced P application.'}\n"
+                f"3. Nitrogen: {'Apply Urea 65 kg/acre in 2 splits.' if n_val < 350 else 'Apply Urea 45 kg/acre.'}\n"
+                f"{'4. Soil Amendment: Apply Agricultural Lime @ 200 kg/acre to correct acidity.' if ph_val < 6.0 else ''}"
             )
 
         return {
@@ -328,7 +328,7 @@ async def execute_feature_action(
         elif feature_id == "identify_pests":
             prompt_override = "Identify the insect pest in this image. Explain damage symptoms and provide Integrated Pest Management (IPM) measures."
 
-        diag = analyze_crop_image(contents, filename=filename, lang=lang, district=district, user_prompt=prompt_override)
+        diag = analyze_crop_image(contents, filename=filename, lang=lang, district=district, user_prompt=prompt_override, feature_mode=feature_id)
         reply = diag.get("response_kn" if is_kn else ("response_en" if not is_hi else "reply"), diag.get("reply", ""))
         return {
             "status": "success",

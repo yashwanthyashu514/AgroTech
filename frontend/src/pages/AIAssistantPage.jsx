@@ -173,6 +173,44 @@ export function AIAssistantPage() {
     window.speechSynthesis.speak(utterance);
   };
 
+  const renderMessageContent = (rawText) => {
+    if (!rawText) return null;
+    const lines = rawText.split('\n');
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        {lines.map((line, lIdx) => {
+          if (!line.trim()) {
+            return <div key={lIdx} style={{ height: '6px' }} />;
+          }
+          // Highlight [BRACKET HEADERS] cleanly
+          if (line.startsWith('[') && line.includes(']:')) {
+            const closingIdx = line.indexOf(']:');
+            const header = line.substring(0, closingIdx + 2);
+            const content = line.substring(closingIdx + 2);
+            return (
+              <div key={lIdx} style={{ lineHeight: 1.5 }}>
+                <span style={{ fontWeight: 700, color: '#86efac', marginRight: '6px' }}>{header}</span>
+                <span style={{ color: '#f8fafc' }}>{content}</span>
+              </div>
+            );
+          }
+          // Parse any **bold** text without leaking asterisks
+          const parts = line.split(/(\*\*.*?\*\*)/g);
+          return (
+            <div key={lIdx} style={{ lineHeight: 1.5 }}>
+              {parts.map((part, pIdx) => {
+                if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+                  return <strong key={pIdx} style={{ color: '#86efac', fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
+                }
+                return <span key={pIdx}>{part}</span>;
+              })}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   const handleCardClick = (card) => {
     setActiveFeature(card.id);
     if (card.type === 'photo') {
@@ -401,7 +439,7 @@ export function AIAssistantPage() {
       {/* 6 Feature Action Cards Grid */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
         gap: '0.85rem',
         marginBottom: '1.5rem'
       }}>
@@ -410,25 +448,27 @@ export function AIAssistantPage() {
             key={c.id}
             onClick={() => handleCardClick(c)}
             style={{
-              background: 'linear-gradient(135deg, rgba(16, 44, 28, 0.8) 0%, rgba(8, 24, 15, 0.9) 100%)',
+              background: 'linear-gradient(135deg, rgba(16, 44, 28, 0.85) 0%, rgba(8, 24, 15, 0.95) 100%)',
               border: '1px solid rgba(74, 222, 128, 0.25)',
-              borderRadius: '12px',
-              padding: '1rem 0.75rem',
+              borderRadius: '14px',
+              padding: '1.1rem 1rem',
               textAlign: 'center',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '6px',
-              minHeight: '110px'
+              minHeight: '100px',
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)'
             }}
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = '#4ade80'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(74, 222, 128, 0.25)'; }}
           >
-            <span style={{ fontSize: '1.8rem' }}>{c.icon}</span>
-            <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#f0fdf4' }}>{c.title[lang]}</div>
-            <div style={{ fontSize: '0.72rem', color: '#94a3b8', lineHeight: 1.2 }}>{c.desc[lang]}</div>
+            <span style={{ fontSize: '1.9rem' }}>{c.icon}</span>
+            <div style={{ fontWeight: 700, fontSize: '0.98rem', color: '#f0fdf4' }}>{c.title[lang]}</div>
+            <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: 1.25 }}>{c.desc[lang]}</div>
           </button>
         ))}
       </div>
@@ -470,7 +510,7 @@ export function AIAssistantPage() {
                 style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', borderRadius: '8px', marginBottom: '8px' }}
               />
             )}
-            <div style={{ whiteSpace: 'pre-wrap' }}>{m.text}</div>
+            {renderMessageContent(m.text)}
 
             {m.sender === 'bot' && (
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '6px' }}>
@@ -605,6 +645,11 @@ export function AIAssistantPage() {
         >
           ➤
         </button>
+      </div>
+
+      {/* Trilingual and Voice indicator matching blueprint */}
+      <div style={{ textAlign: 'center', marginTop: '0.65rem', fontSize: '0.8rem', color: '#94a3b8', letterSpacing: '0.3px' }}>
+        Kannada · English · Hindi · Voice
       </div>
 
       {/* Soil Health Card Modal */}

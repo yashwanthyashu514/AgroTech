@@ -48,6 +48,7 @@ desktop.ini
 .ipynb_checkpoints/
 
 # Misc
+scratch/
 *.csv
 *.zip
 *.tar.gz

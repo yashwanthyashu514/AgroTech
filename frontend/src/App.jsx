@@ -27,8 +27,8 @@ export default function App() {
         {currentPage === 'about' && <AboutPage />}
       </main>
 
-      {/* Raithanna (ರೈತಣ್ಣ) AI Farmer Assistant Chatbot Plugin */}
-      <RaithannaChatWidget />
+      {/* Raithanna (ರೈತಣ್ಣ) AI Farmer Assistant Chatbot Plugin - Only show floating widget when not on full assistant page */}
+      {currentPage !== 'assistant' && <RaithannaChatWidget />}
 
       <footer style={{
         borderTop: '1px solid var(--border)',
