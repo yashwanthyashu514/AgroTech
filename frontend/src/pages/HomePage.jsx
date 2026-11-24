@@ -148,7 +148,7 @@ export function HomePage({ onNavigate }) {
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3.5rem' }}>
               <button
                 className="btn btn-primary btn-lg"
-                onClick={() => onNavigate('recommend')}
+                onClick={() => onNavigate('assistant')}
                 style={{
                   background: 'linear-gradient(135deg, #16a34a 0%, #0ea5e9 100%)',
                   boxShadow: '0 8px 32px rgba(22,163,74,0.45), 0 0 0 1px rgba(74,222,128,0.2)',
@@ -156,7 +156,17 @@ export function HomePage({ onNavigate }) {
                   padding: '1rem 2.2rem',
                 }}
               >
-                🌱 Analyse My Farm — Free
+                👨‍🌾 Open AI Agriculture Assistant (ರೈತಣ್ಣ)
+              </button>
+              <button
+                className="btn btn-secondary btn-lg"
+                onClick={() => onNavigate('recommend')}
+                style={{
+                  fontSize: '1.05rem',
+                  padding: '1rem 2rem',
+                }}
+              >
+                🌱 Crop Recommendation
               </button>
               <button
                 className="btn btn-secondary btn-lg"

@@ -4,10 +4,11 @@ import { HomePage } from './pages/HomePage';
 import { RecommendPage } from './pages/RecommendPage';
 import { WeatherPage } from './pages/WeatherPage';
 import { AboutPage } from './pages/AboutPage';
+import { AIAssistantPage } from './pages/AIAssistantPage';
 import { RaithannaChatWidget } from './components/RaithannaChatWidget';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState('assistant');
 
   const navigateTo = (page) => {
     setCurrentPage(page);
@@ -20,6 +21,7 @@ export default function App() {
 
       <main style={{ flex: 1 }}>
         {currentPage === 'home' && <HomePage onNavigate={navigateTo} />}
+        {currentPage === 'assistant' && <AIAssistantPage />}
         {currentPage === 'recommend' && <RecommendPage />}
         {currentPage === 'weather' && <WeatherPage />}
         {currentPage === 'about' && <AboutPage />}

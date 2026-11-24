@@ -217,3 +217,144 @@ async def get_all_mandi_rates() -> Dict[str, Any]:
 async def get_all_schemes() -> Dict[str, Any]:
     """Returns Karnataka and Central government agricultural schemes."""
     return {"schemes": SCHEMES_DATA}
+
+
+# ── Feature-specific Action Endpoint for Web UI ──────────────────────────────
+
+@router.post("/feature-action")
+async def execute_feature_action(
+    feature_id: str = Form(...),
+    file: Optional[UploadFile] = File(None),
+    message: Optional[str] = Form(None),
+    district: Optional[str] = Form("Davanagere"),
+    season: Optional[str] = Form("Kharif"),
+    lang: Optional[str] = Form("kn"),
+    soil_ph: Optional[float] = Form(None),
+    soil_n: Optional[float] = Form(None),
+    soil_p: Optional[float] = Form(None),
+    soil_k: Optional[float] = Form(None),
+    soil_ec: Optional[float] = Form(None),
+    soil_oc: Optional[float] = Form(None),
+) -> Dict[str, Any]:
+    """
+    Executes one of the 6 core web features:
+    1. identify_plant: Plant species identification
+    2. detect_disease: Crop leaf disease detection
+    3. analyse_soil: Soil photo classification OR Soil Health Card lab report evaluation
+    4. identify_pests: Insect pest recognition and IPM advice
+    5. weather_advice: Karnataka district 7-day forecast and agromet advisory
+    6. ask_ai: Multilingual agricultural conversation (kn, en, hi)
+    """
+    lang = (lang or "kn").lower()
+    is_kn = (lang == "kn")
+    is_hi = (lang == "hi")
+
+    # 1. Feature: Soil Laboratory Report Evaluation
+    if feature_id == "analyse_soil" and any(v is not None for v in [soil_ph, soil_n, soil_p, soil_k, soil_oc]):
+        ph_val = soil_ph if soil_ph is not None else 7.0
+        n_val = soil_n if soil_n is not None else 250.0
+        p_val = soil_p if soil_p is not None else 20.0
+        k_val = soil_k if soil_k is not None else 180.0
+        oc_val = soil_oc if soil_oc is not None else 0.5
+
+        # Classifications
+        ph_status = "ಆಮ್ಲೀಯ (Acidic)" if ph_val < 6.5 else ("ಕ್ಷಾರೀಯ (Alkaline)" if ph_val > 7.8 else "ತಟಸ್ಥ / ಉತ್ತಮ (Neutral)")
+        n_status = "ಕಡಿಮೆ (Low)" if n_val < 280 else ("ಮಧ್ಯಮ (Medium)" if n_val <= 560 else "ಹೆಚ್ಚು (High)")
+        p_status = "ಕಡಿಮೆ (Low)" if p_val < 23 else ("ಮಧ್ಯಮ (Medium)" if p_val <= 56 else "ಹೆಚ್ಚು (High)")
+        k_status = "ಕಡಿಮೆ (Low)" if k_val < 140 else ("ಮಧ್ಯಮ (Medium)" if k_val <= 330 else "ಹೆಚ್ಚು (High)")
+        oc_status = "ಕಡಿಮೆ (Low)" if oc_val < 0.5 else ("ಮಧ್ಯಮ (Medium)" if oc_val <= 0.75 else "ಉತ್ತಮ (High)")
+
+        if is_kn:
+            reply = (
+                f"🧪 **ಮಣ್ಣು ಪರೀಕ್ಷೆ ವರದಿ ವಿಶ್ಲೇಷಣೆ (Soil Health Card Analysis - {district}):**\n\n"
+                f"• **ಮಣ್ಣಿನ pH:** `{ph_val:.1f}` — {ph_status}\n"
+                f"• **ಸಾರಜನಕ (N):** `{n_val:.1f} kg/ha` — {n_status}\n"
+                f"• **ರಂಜಕ (P):** `{p_val:.1f} kg/ha` — {p_status}\n"
+                f"• **ಪೊಟ್ಯಾಷ್ (K):** `{k_val:.1f} kg/ha` — {k_status}\n"
+                f"• **ಸಾವಯವ ಇಂಗಾಲ (OC):** `{oc_val:.2f}%` — {oc_status}\n\n"
+                f"💡 **ವಿಶ್ವವಿದ್ಯಾಲಯ (UAS) ಶಿಫಾರಸು ಮಾಡಿದ ಗೊಬ್ಬರದ ಪ್ರಮಾಣ:**\n"
+                f"1. **ಬಿತ್ತನೆಗೆ ಮುನ್ನ:** ಎಕರೆಗೆ 2 ಟನ್ ಕಾಂಪೋಸ್ಟ್ ಅಥವಾ ಕೊಟ್ಟಿಗೆ ಗೊಬ್ಬರ ಹಾಕಿ ಸಾವಯವ ಇಂಗಾಲ ಹೆಚ್ಚಿಸಿ.\n"
+                f"2. **ರಂಜಕ ಪೂರೈಕೆ:** {'ಎಕರೆಗೆ 50 ಕೆ.ಜಿ DAP ಅಥವಾ 150 ಕೆ.ಜಿ SSP ಬಳಸಿ.' if p_val < 30 else 'ಸಾಧಾರಣ ರಂಜಕ ಸಾಕು.'}\n"
+                f"3. **ಸಾರಜನಕ ಪೂರೈಕೆ:** {'ಯೂರಿಯಾ 60-70 ಕೆ.ಜಿ (2 ಕಂತುಗಳಲ್ಲಿ).' if n_val < 350 else 'ಯೂರಿಯಾ 40 ಕೆ.ಜಿ ಸಾಕು.'}\n"
+                f"{'4. **ಸುಣ್ಣದ ಬಳಕೆ:** ಮಣ್ಣು ಆಮ್ಲೀಯವಾಗಿರುವುದರಿಂದ ಎಕರೆಗೆ 150-200 ಕೆ.ಜಿ ಕೃಷಿ ಸುಣ್ಣ ಬೆರೆಸಿ.' if ph_val < 6.0 else ''}"
+            )
+        elif is_hi:
+            reply = (
+                f"🧪 **मृदा परीक्षण रिपोर्ट विश्लेषण (Soil Health Card Analysis - {district}):**\n\n"
+                f"• **पीएच (pH):** `{ph_val:.1f}` — {ph_status}\n"
+                f"• **नाइट्रोजन (N):** `{n_val:.1f} kg/ha` — {n_status}\n"
+                f"• **फास्फोरस (P):** `{p_val:.1f} kg/ha` — {p_status}\n"
+                f"• **पोटाश (K):** `{k_val:.1f} kg/ha` — {k_status}\n"
+                f"• **जैविक कार्बन (OC):** `{oc_val:.2f}%` — {oc_status}\n\n"
+                f"💡 **कृषि विश्वविद्यालय (UAS) अनुशंसित उर्वरक मात्रा:**\n"
+                f"1. **बुवाई पूर्व:** प्रति एकड़ 2 टन गोबर की खाद या कम्पोस्ट डालें।\n"
+                f"2. **डीएपी/यूरिया:** डीएपी 50 किग्रा तथा यूरिया 40-50 किग्रा दो भागों में दें।"
+            )
+        else:
+            reply = (
+                f"🧪 **Soil Health Card Report Interpretation ({district}):**\n\n"
+                f"• **Soil pH:** `{ph_val:.1f}` — {ph_status}\n"
+                f"• **Available Nitrogen (N):** `{n_val:.1f} kg/ha` — {n_status}\n"
+                f"• **Available Phosphorus (P):** `{p_val:.1f} kg/ha` — {p_status}\n"
+                f"• **Available Potassium (K):** `{k_val:.1f} kg/ha` — {k_status}\n"
+                f"• **Organic Carbon (OC):** `{oc_val:.2f}%` — {oc_status}\n\n"
+                f"💡 **UAS Agronomic Fertilizer Recommendation:**\n"
+                f"1. **Basal Application:** 2 tonnes Farmyard Manure (FYM) per acre.\n"
+                f"2. **Phosphorus:** {'Apply 50 kg DAP or 150 kg SSP per acre.' if p_val < 30 else 'Maintain standard balanced P application.'}\n"
+                f"3. **Nitrogen:** {'Apply Urea 65 kg/acre in 2 splits.' if n_val < 350 else 'Apply Urea 45 kg/acre.'}\n"
+                f"{'4. **Soil Amendment:** Apply Agricultural Lime @ 200 kg/acre to correct acidity.' if ph_val < 6.0 else ''}"
+            )
+
+        return {
+            "status": "success",
+            "feature_id": feature_id,
+            "reply": reply,
+            "chips": ["ಉತ್ತಮ ಬೆಳೆ ಶಿಫಾರಸು", "ಇಂದಿನ ಹವಾಮಾನ", "ಮಾರುಕಟ್ಟೆ ದರ (APMC)"],
+            "data": {"ph": ph_val, "n": n_val, "p": p_val, "k": k_val, "oc": oc_val}
+        }
+
+    # 2. File / Image Upload Handling for Visual Features
+    if file is not None and file.filename:
+        contents = await file.read()
+        filename = file.filename or "upload.jpg"
+        prompt_override = None
+
+        if feature_id == "identify_plant":
+            prompt_override = "Identify the crop or plant species in this photo. Provide botanical name, Kannada/Hindi name, and optimal growing conditions in Karnataka."
+        elif feature_id == "detect_disease":
+            prompt_override = "Diagnose the leaf pathology/disease visible in this photograph. State symptoms, pathogen, confidence, and UAS Karnataka recommended treatments."
+        elif feature_id == "analyse_soil":
+            prompt_override = "Classify this soil type based on color and texture. Recommend suitable Karnataka crops and organic management."
+        elif feature_id == "identify_pests":
+            prompt_override = "Identify the insect pest in this image. Explain damage symptoms and provide Integrated Pest Management (IPM) measures."
+
+        diag = analyze_crop_image(contents, filename=filename, lang=lang, district=district, user_prompt=prompt_override)
+        reply = diag.get("response_kn" if is_kn else ("response_en" if not is_hi else "reply"), diag.get("reply", ""))
+        return {
+            "status": "success",
+            "feature_id": feature_id,
+            "reply": reply,
+            "diagnosis": diag,
+            "chips": ["ರೋಗ ಪತ್ತೆಹಚ್ಚಿ", "ಮಣ್ಣು ವಿಶ್ಲೇಷಣೆ", "ಹವಾಮಾನ ಸಲಹೆ"]
+        }
+
+    # 3. Weather Advice Feature
+    if feature_id == "weather_advice":
+        query_msg = f"{district} district weather forecast and farming advice"
+        res = engine.respond(message=query_msg, district=district, season=season, lang_override=lang)
+        return {
+            "status": "success",
+            "feature_id": feature_id,
+            "reply": res["reply"],
+            "chips": ["ಇಂದಿನ ಹವಾಮಾನ", "ಬೆಳೆ ಶಿಫಾರಸು", "ಕೀಟ ನಿಯಂತ್ರಣ"]
+        }
+
+    # 4. Text Query or Ask AI
+    clean_msg = message or "ಕೃಷಿ ಮಾಹಿತಿ"
+    res = engine.respond(message=clean_msg, district=district, season=season, lang_override=lang)
+    return {
+        "status": "success",
+        "feature_id": feature_id,
+        "reply": res["reply"],
+        "chips": res.get("chips", ["ಸಸ್ಯ ಗುರುತಿಸಿ", "ರೋಗ ಪತ್ತೆಹಚ್ಚಿ", "ಮಣ್ಣು ವಿಶ್ಲೇಷಣೆ"])
+    }

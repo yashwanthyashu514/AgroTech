@@ -21,10 +21,17 @@ def is_kannada(text: str) -> bool:
     return bool(re.search(r'[\u0C80-\u0CFF]', text))
 
 
+def is_hindi(text: str) -> bool:
+    """Detects if text contains Devanagari Hindi Unicode characters (U+0900 to U+097F)."""
+    return bool(re.search(r'[\u0900-\u097F]', text))
+
+
 def detect_language(text: str) -> str:
-    """Detects 'kn' (Kannada), 'kanglish' (Transliterated), or 'en' (English)."""
+    """Detects 'kn' (Kannada), 'hi' (Hindi), 'kanglish' (Transliterated), or 'en' (English)."""
     if is_kannada(text):
         return "kn"
+    if is_hindi(text):
+        return "hi"
     kanglish_words = [
         "jola", "bele", "enu", "yava", "neeru", "gobara", "hulu", "batti",
         "bhatta", "ragi", "adike", "mandi", "male", "bima", "kisan", "yojana",

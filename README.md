@@ -1,50 +1,54 @@
-# AgroTech: AI-Based Agriculture Intelligence System
+# AgroTech: Karnataka Agriculture AI Agent (Web Application)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-18-61DAFB.svg)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-5.4-646CFF.svg)](https://vitejs.dev/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://www.docker.com/)
+[![Platform](https://img.shields.io/badge/Platform-Web%20(Desktop%20%2B%20Mobile%20Browser)-brightgreen.svg)](#)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-An end-to-end, production-grade AI decision-support platform designed to solve the crop selection and climate risk problem for farmers in Karnataka, India.
+An end-to-end, production-grade, multimodal **Agriculture AI Agent** designed specifically for **Karnataka, India**. Built as a 100% responsive web application that runs seamlessly across desktop computers, laptops, tablets, and mobile browsers (Android Chrome, iOS Safari).
+
+> **Scope Note:** This project is a **Web-Only Karnataka Agriculture AI Agent**. Native Android app development is deferred to a future phase. Mobile farmers access the full platform through mobile web browsers with camera, voice, and touch-optimized navigation. Login and administrative dashboards are also deferred to future releases.
 
 ---
 
-## 1. Problem Statement & System Objectives
+## 1. Six Core Web Features
 
-Farmers often select crops based on habit, tradition, or guesswork without rigorously synthesizing their soil chemistry, local climate, 34-year rainfall patterns, dry-spell risk, and historical yield records.
+The web application exposes 6 primary agricultural intelligence features:
 
-**AgroTech** takes a farmer's location (District, Taluk) and season, retrieves hyper-local soil chemistry and 34-year meteorological history, forecasts the upcoming 15-day weather with ML models, and outputs:
-1. **Calibrated Crop Suitability Ranking** (scores from 0% to 100% across 22 crops)
-2. **Explainable AI Reasoning** (which soil nutrients or weather variables triggered the match)
-3. **Empirical Yield Prediction** (Tonnes/Hectare based on 18,900+ Karnataka yield records)
-4. **Phenological Growth Stages Timeline** (Germination, Vegetative, Flowering, Maturity, Harvest) using Growing Degree Day (GDD) heat-unit accumulation
-5. **Multi-Horizon Weather & Rainfall Forecasting** (with dry-spell alerts and agronomic irrigation advice)
+1. **📷 Identify Plant:** Upload or capture photos of crops, leaves, or trees. Identifies species (Rice, Tomato, Maize, Cotton, Sugarcane, Ragi, Arecanut, Coconut, Wheat + others) with botanical and local Karnataka names.
+2. **🔍 Detect Disease:** Visual diagnostic tool analyzing leaf symptoms. Outputs pathogen identification (fungal, bacterial, viral), calibrated confidence score, and verified organic/chemical remedies (UAS Bengaluru / UAS Dharwad standards).
+3. **🌱 Analyse Soil:** Categorizes visible soil characteristics (Black cotton, Red laterite, Sandy loam, Laterite hill soil) and provides precision fertilizer recommendations from uploaded Soil Health Card (SHC) laboratory measurements (N, P, K, pH, EC, organic carbon).
+4. **🐛 Identify Pests:** Identifies agricultural insect pests (Fall armyworm, Bollworm, Stem borer, Aphids, Rhinoceros beetle) and provides Integrated Pest Management (IPM) guidelines.
+5. **🌦️ Weather Advice:** District-level 7-day meteorological forecasts (rainfall probability, temp, humidity) with localized agricultural advisories for Karnataka's 31 districts.
+6. **💬 Ask Agriculture AI:** Trilingual conversational assistant supporting **Kannada (ಕನ್ನಡ), English, and Hindi (हिंदी)** with voice speech recognition, text-to-speech, and guidance on APMC mandi prices and government schemes (Krishi Bhagya, Raitha Siri, PMFBY, Ganga Kalyana).
 
 ---
 
-## 2. System Architecture & The 5 AI Modules
+## 2. Web System Architecture
 
 ```
-                           ┌───────────────────────────────┐
-                           │    React (Vite) Dashboard     │
-                           │   Dark-mode Glassmorphic UI   │
-                           └───────────────┬───────────────┘
-                                           │ HTTP / JSON
-                                           ▼
-                           ┌───────────────────────────────┐
-                           │      FastAPI Python Server    │
-                           │       (Port 8000, ASGI)       │
-                           └───────────────┬───────────────┘
-                                           │
-         ┌──────────────────┬──────────────┴─────┬──────────────────┐
-         ▼                  ▼                    ▼                  ▼
-┌─────────────────┐ ┌───────────────┐ ┌───────────────────┐ ┌───────────────┐
-│ Module 1        │ │ Module 2      │ │ Module 3          │ │ Module 4 & 5  │
-│ Location & Soil │ │ Crop Recom.   │ │ Weather Predict   │ │ Growth & Yield│
-│ 175 Taluks      │ │ Random Forest │ │ XGBoost Multi-Day │ │ GDD Staging   │
-│ 10 Agro Zones   │ │ 99.55% Acc    │ │ 383,520 Obs       │ │ XGBoost Yield │
-└─────────────────┘ └───────────────┘ └───────────────────┘ └───────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│           Responsive Web Application (React 18 + Vite)                 │
+│   Desktop · Laptops · Tablets · Mobile Browsers (Android / iPhone)     │
+│   Camera Capture · Voice Input · Kannada / English / Hindi Toggle      │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ HTTP / REST / WebSocket
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                      FastAPI Backend API Gateway                       │
+│    Request Routing · Multilingual Intent Parser · Safety / OOD Gate    │
+└─────────┬─────────────────────────┬──────────────────────────┬─────────┘
+          │                         │                          │
+          ▼                         ▼                          ▼
+┌──────────────────┐      ┌──────────────────┐      ┌────────────────────┐
+│ Vision AI Models │      │ Agronomic ML     │      │ Knowledge & RAG    │
+│ Dual-Head ConvNet│      │ Crop Rec (99.5%) │      │ Qdrant Vector DB   │
+│ Species & Disease│      │ Weather Multi-Day│      │ PostgreSQL 16      │
+│ OOD Rejection    │      │ Yield (R²=0.98)  │      │ ICAR / UAS Docs    │
+└──────────────────┘      └──────────────────┘      └────────────────────┘
 ```
 
 ### Module Performance Benchmarks

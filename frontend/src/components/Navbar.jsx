@@ -3,6 +3,7 @@ import { useHealth } from '../hooks/useAgrotech';
 
 const NAV_ITEMS = [
   { id: 'home',      label: 'Home',              icon: '🏠' },
+  { id: 'assistant', label: 'AI Assistant (ರೈತಣ್ಣ)', icon: '👨‍🌾', badge: 'AI' },
   { id: 'recommend', label: 'Get Recommendations', icon: '🌾' },
   { id: 'weather',   label: 'Weather',            icon: '🌦️' },
   { id: 'about',     label: 'About',              icon: 'ℹ️' },
