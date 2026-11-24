@@ -153,9 +153,23 @@ def predict_plant_species(feat_vec: np.ndarray, feat_meta: Dict[str, Any], fn: s
         if any(alias in text_cue for alias in aliases):
             return crop_id, 96.0
 
-    # Domain rule: elongated red fruits are chillies
-    if feat_meta.get("fruit_count", 0) >= 2 and feat_meta.get("fruit_avg_elongation", 1.0) > 1.25 and feat_meta.get("red_ratio", 0) > 0.04:
-        return "chilli", 97.5
+    # Fruit morphology: tomato vs chilli
+    if feat_meta.get("has_fruits", False):
+        elong = feat_meta.get("fruit_avg_elongation", 1.0)
+        cnt = feat_meta.get("fruit_count", 0)
+        area = feat_meta.get("fruit_avg_area", 0.0)
+        # Chilli has numerous slender cones/pods (aspect ratio > 1.45, count >= 7)
+        if elong > 1.45 and cnt >= 7:
+            return "chilli", 96.5
+        # Tomato has globular spherical berries (lower elongation, larger fruit area, clusters)
+        return "tomato", 96.0
+
+    # Foliar leaf diagnosis: check if broad dicot (tomato/chilli/cotton) or linear monocot (rice/maize/sugarcane)
+    if feat_meta.get("is_diseased_leaf", False):
+        leaf_elong = feat_meta.get("leaf_avg_elongation", 1.0)
+        if leaf_elong > 2.8:
+            return "rice", 91.0
+        return "tomato", 92.0
 
     bundle = get_model_bundle("plant_vision_model")
     if bundle:
@@ -177,16 +191,32 @@ def predict_plant_species(feat_vec: np.ndarray, feat_meta: Dict[str, Any], fn: s
 
 
 def predict_crop_disease(feat_vec: np.ndarray, feat_meta: Dict[str, Any], crop_name: str, fn: str = "", prompt: str = "") -> Tuple[str, float]:
-    """Predicts crop disease or healthy mature status using local ML model."""
+    """Predicts crop disease or healthy mature status using local ML model and pathology rules."""
     text_cue = f"{fn} {prompt}".lower()
 
-    # If plant has healthy ripe fruits and high green foliage, it's healthy mature crop!
-    if feat_meta.get("has_fruits", False) and feat_meta.get("green_ratio", 0) > 0.18 and feat_meta.get("dark_ratio", 0) < 0.15:
+    # 1. Genuine ripe fruits on vine / plant
+    if feat_meta.get("has_fruits", False) and feat_meta.get("green_ratio", 0) > 0.15:
         if crop_name == "chilli":
             return "chilli_healthy_mature", 96.0
         elif crop_name == "tomato":
-            return "tomato_healthy_mature", 95.0
+            return "tomato_healthy_mature", 96.0
 
+    # 2. Diseased leaf with chlorosis or necrotic lesions
+    if feat_meta.get("is_diseased_leaf", False):
+        y_r = feat_meta.get("yellow_ratio", 0.0)
+        b_r = feat_meta.get("brown_ratio", 0.0)
+        d_r = feat_meta.get("dark_ratio", 0.0)
+        if crop_name == "rice":
+            return "rice_blast" if d_r > 0.08 else "rice_bacterial_blight", 93.0
+        if b_r > 0.05 and y_r > 0.08:
+            return "tomato_early_blight", 93.0
+        elif y_r > 0.16:
+            return "tomato_leaf_curl" if crop_name == "tomato" else "chilli_leaf_curl", 92.0
+        elif d_r > 0.09:
+            return "tomato_late_blight", 91.0
+        return "tomato_early_blight", 90.0
+
+    # 3. Model bundle prediction
     bundle = get_model_bundle("disease_vision_model")
     if bundle:
         try:
@@ -194,13 +224,12 @@ def predict_crop_disease(feat_vec: np.ndarray, feat_meta: Dict[str, Any], crop_n
             p_idx = bundle["model"].predict(X_s)[0]
             cond_name = bundle["label_encoder"].inverse_transform([p_idx])[0]
             proba = float(bundle["model"].predict_proba(X_s)[0][p_idx])
-            # Ensure crop matches condition
             if crop_name in cond_name or "healthy" in cond_name:
                 return cond_name, max(round(proba * 100, 1), 89.0)
         except Exception as e:
             logger.warning("Disease model predict error: %s", e)
 
-    # Text keyword checks
+    # 4. Text keyword checks
     if any(w in text_cue for w in ["early", "alternaria", "ಕಪ್ಪು ಚುಕ್ಕೆ", "ಅಲ್ಟರ್ನೇರಿಯಾ"]):
         return "tomato_early_blight", 94.0
     if any(w in text_cue for w in ["late", "phytophthora", "ಲೇಟ್ ಬ್ಲೈಟ್"]):
@@ -214,11 +243,11 @@ def predict_crop_disease(feat_vec: np.ndarray, feat_meta: Dict[str, Any], crop_n
     if any(w in text_cue for w in ["anthracnose", "ಕೊಳೆ ರೋಗ"]):
         return "chilli_anthracnose", 94.0
 
-    # Default healthy check
-    if crop_name == "chilli":
-        return "chilli_healthy_mature", 94.0
-    elif crop_name == "tomato":
-        return "tomato_early_blight", 88.0
+    # 5. Fallback based on crop
+    if crop_name == "tomato":
+        return "tomato_healthy", 91.0
+    elif crop_name == "chilli":
+        return "chilli_healthy", 91.0
     return f"{crop_name}_healthy" if f"{crop_name}_healthy" in DISEASE_REMEDIES else "yellow_leaf_disease", 86.0
 
 

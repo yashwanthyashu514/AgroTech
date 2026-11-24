@@ -132,46 +132,52 @@ def extract_agri_features(image_input: Union[bytes, str, np.ndarray]) -> Tuple[n
     b_skew = float(np.mean(((b_c - b_mean) / (b_std + 1e-5)) ** 3))
 
     # 4. Agricultural Color Fractions
-    # Red mask (Ripe chillies, ripe tomatoes): H in [0, 14] or [166, 180], S > 60, V > 45
-    m_red1 = cv2.inRange(hsv, np.array([0, 60, 45]), np.array([14, 255, 255]))
-    m_red2 = cv2.inRange(hsv, np.array([166, 60, 45]), np.array([180, 255, 255]))
-    mask_red = m_red1 | m_red2
+    # True Red fruit mask (Ripe chillies, ripe tomatoes): High saturation (S > 110), Bright (V > 70), R > G + 20 and R > B + 20
+    m_red1 = cv2.inRange(hsv, np.array([0, 110, 70]), np.array([12, 255, 255]))
+    m_red2 = cv2.inRange(hsv, np.array([168, 110, 70]), np.array([180, 255, 255]))
+    red_chroma = (r > (g + 20)) & (r > (b + 20))
+    mask_red = (m_red1 | m_red2) & red_chroma.astype(np.uint8) * 255
     red_ratio = float(np.sum(mask_red > 0) / total_pixels)
 
     # Green foliage mask: H in [28, 88], S > 35, V > 35
     mask_green = cv2.inRange(hsv, np.array([28, 35, 35]), np.array([88, 255, 255]))
     green_ratio = float(np.sum(mask_green > 0) / total_pixels)
 
-    # Yellow chlorosis / panicles: H in [16, 28], S > 50, V > 60
-    mask_yellow = cv2.inRange(hsv, np.array([16, 50, 60]), np.array([28, 255, 255]))
+    # Yellow chlorosis / leaf halos: H in [16, 36], S > 45, V > 65 (excluding red fruit)
+    mask_yellow_raw = cv2.inRange(hsv, np.array([16, 45, 65]), np.array([36, 255, 255]))
+    mask_yellow = mask_yellow_raw & (mask_red == 0)
     yellow_ratio = float(np.sum(mask_yellow > 0) / total_pixels)
 
     # White cotton lint / powdery mildew: S < 40, V > 180
     mask_white = cv2.inRange(hsv, np.array([0, 0, 180]), np.array([180, 45, 255]))
     white_ratio = float(np.sum(mask_white > 0) / total_pixels)
 
-    # Brown soil / necrotic tissue: R in [80, 180], G in [50, 140], B < 100, R > B + 25
-    mask_brown = (r > 80) & (r < 190) & (g > 45) & (g < 150) & (b < 110) & (r > b + 20)
-    brown_ratio = float(np.sum(mask_brown) / total_pixels)
+    # Brown necrotic spots / dead tissue / soil: H in [7, 26], S in [30, 200], V in [20, 115] (excluding red fruit)
+    mask_brown_raw = cv2.inRange(hsv, np.array([7, 30, 20]), np.array([26, 200, 115]))
+    mask_brown = mask_brown_raw & (mask_red == 0)
+    brown_ratio = float(np.sum(mask_brown > 0) / total_pixels)
 
     # Deep dark / necrotic spots: r, g, b < 65
-    mask_dark = (r < 65) & (g < 65) & (b < 65)
+    mask_dark = (r < 65) & (g < 65) & (b < 65) & (mask_red == 0)
     dark_ratio = float(np.sum(mask_dark) / total_pixels)
 
     # 5. Morphological Fruit & Pod Contours
     contours_red, _ = cv2.findContours(mask_red, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     fruit_elongations = []
+    fruit_areas = []
     total_fruit_area = 0.0
     for c in contours_red:
         area = cv2.contourArea(c)
-        if area > 25:
+        if area > 45:
             total_fruit_area += area
+            fruit_areas.append(area)
             _, _, cw, ch = cv2.boundingRect(c)
             elongation = max(cw, ch) / float(min(cw, ch) + 1e-5)
             fruit_elongations.append(elongation)
 
     fruit_count = len(fruit_elongations)
     fruit_avg_elongation = float(np.mean(fruit_elongations)) if fruit_elongations else 1.0
+    fruit_avg_area = float(np.mean(fruit_areas)) if fruit_areas else 0.0
     fruit_area_share = float(total_fruit_area / total_pixels)
 
     # 6. Morphological Leaf Contours
@@ -235,20 +241,25 @@ def extract_agri_features(image_input: Union[bytes, str, np.ndarray]) -> Tuple[n
     feature_vec = np.array(values, dtype=np.float32)
 
     # Boolean flags for semantic routing
-    has_fruits = (red_ratio > 0.035 or fruit_count >= 2)
-    is_healthy_fruit = (has_fruits and green_ratio > 0.20 and dark_ratio < 0.20)
-    is_soil = (green_excess < -5.0 and (brown_ratio > 0.25 or dark_ratio > 0.3) and not has_fruits)
-    is_pest = (dark_ratio > 0.20 and green_excess > 5.0 and not has_fruits)
+    has_fruits = bool(red_ratio > 0.04 and fruit_count >= 1)
+    is_diseased_leaf = bool(not has_fruits and (yellow_ratio > 0.09 or brown_ratio > 0.05 or dark_ratio > 0.06))
+    is_healthy_fruit = bool(has_fruits and green_ratio > 0.15 and dark_ratio < 0.20)
+    is_soil = bool(green_excess < -5.0 and (brown_ratio > 0.20 or dark_ratio > 0.25) and not has_fruits)
+    is_pest = bool(dark_ratio > 0.20 and green_excess > 5.0 and not has_fruits and not is_diseased_leaf)
 
     meta = {
         "has_fruits": has_fruits,
         "is_healthy_fruit": is_healthy_fruit,
+        "is_diseased_leaf": is_diseased_leaf,
         "is_soil": is_soil,
         "is_pest": is_pest,
         "fruit_count": fruit_count,
         "fruit_avg_elongation": fruit_avg_elongation,
+        "fruit_avg_area": fruit_avg_area,
         "red_ratio": red_ratio,
         "green_ratio": green_ratio,
+        "yellow_ratio": yellow_ratio,
+        "brown_ratio": brown_ratio,
         "dark_ratio": dark_ratio,
         "leaf_avg_elongation": leaf_avg_elongation,
     }

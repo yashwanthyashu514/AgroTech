@@ -37,6 +37,9 @@ assert r.status_code == 200
 user_chilli_path = pathlib.Path("data_pipeline/vision_training_data/Chilli___healthy_mature/user_chilli_real.jpg")
 chilli_bytes = user_chilli_path.read_bytes()
 
+tomato_bytes = pathlib.Path("scratch/user_tomato_crop.jpg").read_bytes() if pathlib.Path("scratch/user_tomato_crop.jpg").exists() else chilli_bytes
+leaf_bytes = pathlib.Path("scratch/user_leaf_crop.jpg").read_bytes() if pathlib.Path("scratch/user_leaf_crop.jpg").exists() else chilli_bytes
+
 soil_path = list(pathlib.Path("data_pipeline/vision_training_data/Soil___black_cotton").glob("*.jpg"))[0]
 soil_bytes = soil_path.read_bytes()
 
@@ -75,6 +78,36 @@ assert r.status_code == 200
 assert "Fall Armyworm" not in res["reply"]
 assert "ಸೈನಿಕ ಹುಳು" not in res["reply"]
 assert "ಆರೋಗ್ಯಕರ" in res["reply"] or "Healthy" in res["reply"]
+
+print("\n" + "=" * 60)
+print("TEST 4b: Feature 2 - Detect Disease (Real Tomato Image - MUST BE HEALTHY TOMATO)")
+print("=" * 60)
+r = client.post(
+    "/api/v1/plugin/raithanna/feature-action",
+    data={"feature_id": "detect_disease", "lang": "en", "district": "Davanagere"},
+    files={"file": ("tomato_sample.jpg", io.BytesIO(tomato_bytes), "image/jpeg")}
+)
+print("Status:", r.status_code)
+res = r.json()
+print("Reply Preview:\n", res["reply"])
+assert r.status_code == 200
+assert "Healthy Tomato" in res["reply"]
+assert "Chilli" not in res["reply"]
+
+print("\n" + "=" * 60)
+print("TEST 4c: Feature 2 - Detect Disease (Real Diseased Leaf - MUST BE BLIGHT / LEAF SPOT)")
+print("=" * 60)
+r = client.post(
+    "/api/v1/plugin/raithanna/feature-action",
+    data={"feature_id": "detect_disease", "lang": "en", "district": "Davanagere"},
+    files={"file": ("leaf_sample.jpg", io.BytesIO(leaf_bytes), "image/jpeg")}
+)
+print("Status:", r.status_code)
+res = r.json()
+print("Reply Preview:\n", res["reply"])
+assert r.status_code == 200
+assert "Blight" in res["reply"] or "Spot" in res["reply"] or "Curl" in res["reply"]
+assert "Healthy Chilli Plant" not in res["reply"]
 
 print("\n" + "=" * 60)
 print("TEST 5: Feature 3 - Analyse Soil (Black Cotton Soil Image)")
