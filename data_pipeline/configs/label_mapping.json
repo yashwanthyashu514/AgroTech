@@ -1,0 +1,215 @@
+{
+  "version": "1.0.0",
+  "mappings": {
+    "Tomato___Early_blight": {
+      "canonical_crop": "tomato",
+      "canonical_disease": "tomato_early_blight",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "tomato___early_blight"
+    },
+    "Tomato___Late_blight": {
+      "canonical_crop": "tomato",
+      "canonical_disease": "tomato_late_blight",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "tomato___late_blight"
+    },
+    "Tomato___Bacterial_spot": {
+      "canonical_crop": "tomato",
+      "canonical_disease": "tomato_bacterial_spot",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "tomato___bacterial_spot"
+    },
+    "Tomato___Leaf_Mold": {
+      "canonical_crop": "tomato",
+      "canonical_disease": "tomato_leaf_mold",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "tomato___leaf_mold"
+    },
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+      "canonical_crop": "tomato",
+      "canonical_disease": "tomato_leaf_curl",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "tomato___leaf_curl"
+    },
+    "Tomato___healthy": {
+      "canonical_crop": "tomato",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "tomato___healthy"
+    },
+    "Corn_(maize)___Common_rust_": {
+      "canonical_crop": "maize",
+      "canonical_disease": "maize_common_rust",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "maize___common_rust"
+    },
+    "Corn_(maize)___Northern_Leaf_Blight": {
+      "canonical_crop": "maize",
+      "canonical_disease": "maize_northern_leaf_blight",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "maize___northern_leaf_blight"
+    },
+    "Corn_(maize)___healthy": {
+      "canonical_crop": "maize",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "maize___healthy"
+    },
+    "Rice___Brown_Spot": {
+      "canonical_crop": "rice",
+      "canonical_disease": "rice_brown_spot",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "rice___brown_spot"
+    },
+    "Rice___Leaf_Blast": {
+      "canonical_crop": "rice",
+      "canonical_disease": "rice_blast",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "rice___blast"
+    },
+    "Rice___Bacterial_blight": {
+      "canonical_crop": "rice",
+      "canonical_disease": "rice_bacterial_leaf_blight",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "rice___bacterial_blight"
+    },
+    "Rice___healthy": {
+      "canonical_crop": "rice",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "rice___healthy"
+    },
+    "Cotton___bacterial_blight": {
+      "canonical_crop": "cotton",
+      "canonical_disease": "cotton_bacterial_blight",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "cotton___bacterial_blight"
+    },
+    "Cotton___curl_virus": {
+      "canonical_crop": "cotton",
+      "canonical_disease": "cotton_leaf_curl",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "cotton___leaf_curl"
+    },
+    "Cotton___healthy": {
+      "canonical_crop": "cotton",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "cotton___healthy"
+    },
+    "Sugarcane___red_rot": {
+      "canonical_crop": "sugarcane",
+      "canonical_disease": "sugarcane_red_rot",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "sugarcane___red_rot"
+    },
+    "Sugarcane___smut": {
+      "canonical_crop": "sugarcane",
+      "canonical_disease": "sugarcane_smut",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "sugarcane___smut"
+    },
+    "Sugarcane___healthy": {
+      "canonical_crop": "sugarcane",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "sugarcane___healthy"
+    },
+    "Ragi___blast": {
+      "canonical_crop": "ragi",
+      "canonical_disease": "ragi_blast",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "ragi___blast"
+    },
+    "Ragi___healthy": {
+      "canonical_crop": "ragi",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "ragi___healthy"
+    },
+    "Arecanut___koleroga": {
+      "canonical_crop": "arecanut",
+      "canonical_disease": "arecanut_koleroga",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "arecanut___koleroga"
+    },
+    "Arecanut___yellow_leaf": {
+      "canonical_crop": "arecanut",
+      "canonical_disease": "arecanut_yellow_leaf_disease",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "arecanut___yellow_leaf"
+    },
+    "Arecanut___healthy": {
+      "canonical_crop": "arecanut",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "arecanut___healthy"
+    },
+    "Coconut___bud_rot": {
+      "canonical_crop": "coconut",
+      "canonical_disease": "coconut_bud_rot",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "coconut___bud_rot"
+    },
+    "Coconut___stem_bleeding": {
+      "canonical_crop": "coconut",
+      "canonical_disease": "coconut_stem_bleeding",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "coconut___stem_bleeding"
+    },
+    "Coconut___healthy": {
+      "canonical_crop": "coconut",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "coconut___healthy"
+    },
+    "Wheat___stripe_rust": {
+      "canonical_crop": "wheat",
+      "canonical_disease": "wheat_stripe_rust",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "wheat___stripe_rust"
+    },
+    "Wheat___leaf_rust": {
+      "canonical_crop": "wheat",
+      "canonical_disease": "wheat_leaf_rust",
+      "condition_type": "disease",
+      "status": "diseased",
+      "canonical_label": "wheat___leaf_rust"
+    },
+    "Wheat___healthy": {
+      "canonical_crop": "wheat",
+      "canonical_disease": "none",
+      "condition_type": "healthy",
+      "status": "healthy",
+      "canonical_label": "wheat___healthy"
+    }
+  }
+}

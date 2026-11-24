@@ -51,3 +51,9 @@ desktop.ini
 *.csv
 *.zip
 *.tar.gz
+
+# Data Pipeline raw & extracted imagery
+data_pipeline/raw/
+data_pipeline/extracted/
+data_pipeline/sample_testbed/
+

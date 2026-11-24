@@ -1,0 +1,84 @@
+{
+  "summary": {
+    "total_images_inspected": 126,
+    "valid_images": 124,
+    "corrupted_images": 2,
+    "exact_duplicates": 5,
+    "near_duplicate_pairs": 36,
+    "unique_clusters": 83,
+    "redundant_images_clustered": 41,
+    "data_leakage_prevented": true
+  },
+  "balance_metrics": {
+    "total_classes": 31,
+    "shannon_entropy_balance_score": 1.0,
+    "max_class_count": 4,
+    "min_class_count": 4,
+    "imbalance_ratio": 1.0
+  },
+  "splits": {
+    "total_records": 124,
+    "train_records": 50,
+    "val_records": 38,
+    "test_records": 36,
+    "train_pct": 40.3,
+    "val_pct": 30.6,
+    "test_pct": 29.0,
+    "train_clusters": 33,
+    "val_clusters": 25,
+    "test_clusters": 25,
+    "data_leakage_detected": false
+  },
+  "crop_distribution": {
+    "tomato": 20,
+    "maize": 16,
+    "rice": 16,
+    "arecanut": 12,
+    "coconut": 12,
+    "cotton": 12,
+    "ragi": 12,
+    "sugarcane": 12,
+    "wheat": 12
+  },
+  "condition_type_distribution": {
+    "disease": 84,
+    "healthy": 36,
+    "pest": 4
+  },
+  "source_distribution": {
+    "karnataka_synthetic_verification": 124
+  },
+  "label_distribution": {
+    "arecanut___healthy": 4,
+    "arecanut___koleroga": 4,
+    "arecanut___yellow_leaf": 4,
+    "coconut___bud_rot": 4,
+    "coconut___healthy": 4,
+    "coconut___stem_bleeding": 4,
+    "cotton___bacterial_blight": 4,
+    "cotton___healthy": 4,
+    "cotton___pink_bollworm": 4,
+    "maize___common_rust": 4,
+    "maize___fall_armyworm": 4,
+    "maize___healthy": 4,
+    "maize___northern_leaf_blight": 4,
+    "ragi___blast": 4,
+    "ragi___brown_spot": 4,
+    "ragi___healthy": 4,
+    "rice___bacterial_blight": 4,
+    "rice___blast": 4,
+    "rice___brown_spot": 4,
+    "rice___healthy": 4,
+    "sugarcane___healthy": 4,
+    "sugarcane___red_rot": 4,
+    "sugarcane___smut": 4,
+    "tomato___bacterial_spot": 4,
+    "tomato___early_blight": 4,
+    "tomato___healthy": 4,
+    "tomato___late_blight": 4,
+    "tomato___leaf_curl": 4,
+    "wheat___healthy": 4,
+    "wheat___leaf_rust": 4,
+    "wheat___stripe_rust": 4
+  }
+}

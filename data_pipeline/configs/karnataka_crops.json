@@ -1,0 +1,189 @@
+{
+  "region": "Karnataka",
+  "agro_climatic_zones": [
+    "Zone 1: North Eastern Transition Zone (Bidar, Kalaburagi)",
+    "Zone 2: North Eastern Dry Zone (Raichur, Koppal, Yadgir)",
+    "Zone 3: Northern Dry Zone (Vijayapura, Bagalkot, Belagavi, Gadag, Bellary)",
+    "Zone 4: Central Dry Zone (Chitradurga, Davanagere, Tumakuru)",
+    "Zone 5: Eastern Dry Zone (Bengaluru Urban & Rural, Kolar, Chikkaballapura)",
+    "Zone 6: Southern Dry Zone (Mysuru, Mandya, Chamarajanagar)",
+    "Zone 7: Southern Transition Zone (Hassan, Shivamogga)",
+    "Zone 8: Northern Transition Zone (Dharwad, Haveri)",
+    "Zone 9: Hilly Zone / Malnad (Chikkamagaluru, Kodagu, Uttara Kannada)",
+    "Zone 10: Coastal Zone (Dakshina Kannada, Udupi)"
+  ],
+  "crops": {
+    "rice": {
+      "id": "rice",
+      "name_en": "Rice / Paddy",
+      "name_kn": "ಭತ್ತ (Paddy)",
+      "scientific_name": "Oryza sativa",
+      "category": "cereal",
+      "major_districts": ["Mandya", "Raichur", "Ballari", "Shivamogga", "Davangere", "Udupi", "Uttara Kannada"],
+      "soil_suitability": ["Sandy loam / Alluvial soil (ಮೆಕ್ಕಲು ಮಣ್ಣು)", "Clay loam", "Black cotton soil (ಕಪ್ಪು ಮಣ್ಣು)"],
+      "ph_range": [5.5, 7.5],
+      "major_diseases": [
+        {"id": "rice_blast", "name_en": "Blast (Magnaporthe oryzae)", "name_kn": "ಬೆಂಕಿ ರೋಗ (ಬ್ಲಾಸ್ಟ್)", "symptoms": "Spindle-shaped spots with gray/white center and brown margin on leaves and neck."},
+        {"id": "rice_bacterial_leaf_blight", "name_en": "Bacterial Leaf Blight (Xanthomonas oryzae)", "name_kn": "ದುಂಡಾಣು ಎಲೆ ಕವಚ ರೋಗ (ಬ್ಯಾಕ್ಟೀರಿಯಲ್ ಬ್ಲೈಟ್)", "symptoms": "Water-soaked yellow lesions turning straw-colored with wavy margins from leaf tip downwards."},
+        {"id": "rice_brown_spot", "name_en": "Brown Spot (Bipolaris oryzae)", "name_kn": "ಕಂದು ಚುಕ್ಕೆ ರೋಗ", "symptoms": "Oval to circular dark brown spots resembling sesame seeds on leaf blades."}
+      ],
+      "major_pests": [
+        {"id": "rice_stem_borer", "name_en": "Yellow Stem Borer", "name_kn": "ಕಾಂಡ ಕೊರೆಯುವ ಹುಳು"},
+        {"id": "rice_brown_planthopper", "name_en": "Brown Planthopper (BPH)", "name_kn": "ಕಂದು ಜಿಗಿಹುಳು (ಹಾಪರ್ ಬರ್ನ್)"}
+      ]
+    },
+    "tomato": {
+      "id": "tomato",
+      "name_en": "Tomato",
+      "name_kn": "ಟೊಮೆಟೊ",
+      "scientific_name": "Solanum lycopersicum",
+      "category": "vegetable",
+      "major_districts": ["Kolar", "Chikkaballapura", "Belagavi", "Bengaluru Rural", "Hassan"],
+      "soil_suitability": ["Red laterite soil (ಕೆಂಪು ಮಣ್ಣು)", "Sandy loam / Alluvial soil (ಮೆಕ್ಕಲು ಮಣ್ಣು)"],
+      "ph_range": [6.0, 7.0],
+      "major_diseases": [
+        {"id": "tomato_early_blight", "name_en": "Early Blight (Alternaria solani)", "name_kn": "ಮುಂಗಾರು ಅಂಗಮಾರಿ (ಅಲ್ಟರ್ನೇರಿಯಾ ಬ್ಲೈಟ್)", "symptoms": "Concentric dark brown rings resembling a target board on older leaves."},
+        {"id": "tomato_late_blight", "name_en": "Late Blight (Phytophthora infestans)", "name_kn": "ಹಿಂಗಾರು ಅಂಗಮಾರಿ ರೋಗ", "symptoms": "Irregular pale green water-soaked lesions turning dark purplish-black rapidly."},
+        {"id": "tomato_leaf_curl", "name_en": "Tomato Leaf Curl Virus (ToLCV)", "name_kn": "ಎಲೆ ಮುದುರು ನಂಜು ರೋಗ (ವೈರಸ್)", "symptoms": "Upward curling, puckering, stunting, and thick leathery leaves caused by whiteflies."},
+        {"id": "tomato_bacterial_spot", "name_en": "Bacterial Spot (Xanthomonas)", "name_kn": "ದುಂಡಾಣು ಚುಕ್ಕೆ ರೋಗ", "symptoms": "Small, dark, greasy spots on leaves surrounded by a bright yellow halo."}
+      ],
+      "major_pests": [
+        {"id": "tomato_fruit_borer", "name_en": "Fruit Borer (Helicoverpa armigera)", "name_kn": "ಕಾಯಿ ಕೊರೆಯುವ ಹುಳು"},
+        {"id": "tomato_whitefly", "name_en": "Whitefly (Bemisia tabaci)", "name_kn": "ಬಿಳಿ ನೊಣ"}
+      ]
+    },
+    "maize": {
+      "id": "maize",
+      "name_en": "Maize / Corn",
+      "name_kn": "ಮೆಕ್ಕೆಜೋಳ (Maize)",
+      "scientific_name": "Zea mays",
+      "category": "cereal",
+      "major_districts": ["Davanagere", "Haveri", "Belagavi", "Ballari", "Chitradurga", "Shivamogga"],
+      "soil_suitability": ["Black cotton soil (ಕಪ್ಪು ಮಣ್ಣು)", "Red laterite soil (ಕೆಂಪು ಮಣ್ಣು)", "Sandy loam / Alluvial soil (ಮೆಕ್ಕಲು ಮಣ್ಣು)"],
+      "ph_range": [6.0, 7.5],
+      "major_diseases": [
+        {"id": "maize_common_rust", "name_en": "Common Rust (Puccinia sorghi)", "name_kn": "ತುಕ್ಕು ರೋಗ (ರಸ್ಟ್)", "symptoms": "Small, powdery, cinnamon-brown pustules scattered over both leaf surfaces."},
+        {"id": "maize_northern_leaf_blight", "name_en": "Northern Leaf Blight (Exserohilum turcicum)", "name_kn": "ಉತ್ತರದ ಎಲೆ ಕರಕಲು ರೋಗ", "symptoms": "Cigar-shaped, long grayish-green to tan lesions parallel to leaf veins."}
+      ],
+      "major_pests": [
+        {"id": "maize_fall_armyworm", "name_en": "Fall Armyworm (Spodoptera frugiperda)", "name_kn": "ಲದ್ದಿ ಹುಳು (ಫಾಲ್ ಆರ್ಮಿ ವರ್ಮ್)", "symptoms": "Extensive pinholes on whorl leaves and large ragged tears with moist saw-dust frass."}
+      ]
+    },
+    "cotton": {
+      "id": "cotton",
+      "name_en": "Cotton",
+      "name_kn": "ಹತ್ತಿ (Cotton)",
+      "scientific_name": "Gossypium hirsutum",
+      "category": "cash_crop",
+      "major_districts": ["Dharwad", "Haveri", "Raichur", "Ballari", "Belagavi", "Kalaburagi", "Mysuru"],
+      "soil_suitability": ["Black cotton soil (ಕಪ್ಪು ಮಣ್ಣು)", "Deep vertisols"],
+      "ph_range": [6.5, 8.5],
+      "major_diseases": [
+        {"id": "cotton_bacterial_blight", "name_en": "Bacterial Blight / Black Arm (Xanthomonas malvacearum)", "name_kn": "ದುಂಡಾಣು ಕಪ್ಪು ಕಲೆ ರೋಗ", "symptoms": "Angular water-soaked leaf spots bordered by veins, turning dark brown/black."},
+        {"id": "cotton_grey_mildew", "name_en": "Grey Mildew / Dahiya (Ramularia areola)", "name_kn": "ಬೂದಿ ರೋಗ", "symptoms": "Angular white to grayish powdery growth on lower surface of leaves."}
+      ],
+      "major_pests": [
+        {"id": "cotton_pink_bollworm", "name_en": "Pink Bollworm (Pectinophora gossypiella)", "name_kn": "ಗುಲಾಬಿ ಕಾಯಿ ಕೊರೆಯುವ ಹುಳು"},
+        {"id": "cotton_aphids", "name_en": "Aphids / Jassids", "name_kn": "ಸಸ್ಯಹೇನು ಮತ್ತು ಜಿಗಿಹುಳು"}
+      ]
+    },
+    "sugarcane": {
+      "id": "sugarcane",
+      "name_en": "Sugarcane",
+      "name_kn": "ಕಬ್ಬು (Sugarcane)",
+      "scientific_name": "Saccharum officinarum",
+      "category": "cash_crop",
+      "major_districts": ["Mandya", "Belagavi", "Bagalkot", "Vijayapura", "Mysuru"],
+      "soil_suitability": ["Sandy loam / Alluvial soil (ಮೆಕ್ಕಲು ಮಣ್ಣು)", "Deep well-drained loams"],
+      "ph_range": [6.5, 7.8],
+      "major_diseases": [
+        {"id": "sugarcane_red_rot", "name_en": "Red Rot (Colletotrichum falcatum)", "name_kn": "ಕೆಂಪು ಕೊಳೆ ರೋಗ (ರೆಡ್ ರಾಟ್)", "symptoms": "Discoloration and drying of top leaves; internal tissue turns bright red with crosswise white patches."},
+        {"id": "sugarcane_smut", "name_en": "Smut (Sporisorium scitamineum)", "name_kn": "ಕಾಡಿಗೆ ರೋಗ", "symptoms": "Pencil-like black whip-like curved structure emerging from terminal shoot."}
+      ],
+      "major_pests": [
+        {"id": "sugarcane_early_shoot_borer", "name_en": "Early Shoot Borer", "name_kn": "ಬುಡ ಕೊರೆಯುವ ಹುಳು"}
+      ]
+    },
+    "ragi": {
+      "id": "ragi",
+      "name_en": "Ragi / Finger Millet",
+      "name_kn": "ರಾಗಿ (Finger Millet)",
+      "scientific_name": "Eleusine coracana",
+      "category": "millet",
+      "major_districts": ["Tumakuru", "Hassan", "Mandya", "Chikkaballapura", "Kolar", "Ramanagara", "Bengaluru Rural"],
+      "soil_suitability": ["Red laterite soil (ಕೆಂಪು ಮಣ್ಣು)", "Sandy loam", "Light laterite"],
+      "ph_range": [5.0, 7.0],
+      "major_diseases": [
+        {"id": "ragi_blast", "name_en": "Ragi Blast (Pyricularia grisea)", "name_kn": "ರಾಗಿ ಬೆಂಕಿ ರೋಗ (ಬ್ಲಾಸ್ಟ್)", "symptoms": "Spindle-shaped brown spots on leaves; neck and finger blast causes complete grain loss."},
+        {"id": "ragi_brown_spot", "name_en": "Brown Spot (Drechslera nodulosa)", "name_kn": "ಕಂದು ಚುಕ್ಕೆ ರೋಗ", "symptoms": "Dark brown oval spots on leaf blade and sheath with yellow halos."}
+      ],
+      "major_pests": [
+        {"id": "ragi_stem_borer", "name_en": "Pink Stem Borer", "name_kn": "ಕಾಂಡ ಕೊರೆಯುವ ಹುಳು"}
+      ]
+    },
+    "arecanut": {
+      "id": "arecanut",
+      "name_en": "Arecanut / Betel Nut",
+      "name_kn": "ಅಡಿಕೆ (Arecanut)",
+      "scientific_name": "Areca catechu",
+      "category": "plantation",
+      "major_districts": ["Shivamogga", "Chikkamagaluru", "Dakshina Kannada", "Uttara Kannada", "Udupi", "Tumakuru", "Davanagere"],
+      "soil_suitability": ["Laterite hill soil (ಜಂಬಿಟ್ಟಿಗೆ ಮಣ್ಣು)", "Red clay loam"],
+      "ph_range": [5.5, 6.8],
+      "major_diseases": [
+        {"id": "arecanut_koleroga", "name_en": "Fruit Rot / Koleroga / Mahali (Phytophthora meadii)", "name_kn": "ಕೋಳೆ ರೋಗ / ಮಹಾಲಿ", "symptoms": "Water-soaked dark lesions on young nuts causing mass nut dropping with white fungal bloom."},
+        {"id": "arecanut_yellow_leaf_disease", "name_en": "Yellow Leaf Disease (YLD)", "name_kn": "ಹಳದಿ ಎಲೆ ರೋಗ", "symptoms": "Intense yellowing of outer whorl of leaflets, kernel turning black and spongy."}
+      ],
+      "major_pests": [
+        {"id": "arecanut_white_mite", "name_en": "White Mite / Red Spider Mite", "name_kn": "ನುಸಿ ಹುಳು"}
+      ]
+    },
+    "coconut": {
+      "id": "coconut",
+      "name_en": "Coconut",
+      "name_kn": "ತೆಂಗು (Coconut)",
+      "scientific_name": "Cocos nucifera",
+      "category": "plantation",
+      "major_districts": ["Tumakuru", "Hassan", "Mandya", "Chitradurga", "Dakshina Kannada", "Udupi"],
+      "soil_suitability": ["Laterite hill soil (ಜಂಬಿಟ್ಟಿಗೆ ಮಣ್ಣು)", "Sandy loam / Alluvial soil (ಮೆಕ್ಕಲು ಮಣ್ಣು)", "Red loam"],
+      "ph_range": [5.2, 8.0],
+      "major_diseases": [
+        {"id": "coconut_bud_rot", "name_en": "Bud Rot (Phytophthora palmivora)", "name_kn": "ಸುಳಿ ಕೊಳೆ ರೋಗ (ಬಡ್ ರಾಟ್)", "symptoms": "Yellowing and withering of central spindle leaf, rotting with foul smell."},
+        {"id": "coconut_stem_bleeding", "name_en": "Stem Bleeding (Thielaviopsis paradoxa)", "name_kn": "ಕಾಂಡದ ಸೋರಿಕೆ ರೋಗ", "symptoms": "Dark brown reddish-black exudation oozing from trunk cracks."}
+      ],
+      "major_pests": [
+        {"id": "coconut_rhinoceros_beetle", "name_en": "Rhinoceros Beetle (Oryctes rhinoceros)", "name_kn": "ಖಡ್ಗಮೃಗ ದುಂಬಿ (ಕೊಂಬು ದುಂಬಿ)"},
+        {"id": "coconut_eriophyid_mite", "name_en": "Eriophyid Mite (Aceria guerreronis)", "name_kn": "ತೆಂಗಿನ ನುಸಿ ರೋಗ"}
+      ]
+    },
+    "wheat": {
+      "id": "wheat",
+      "name_en": "Wheat",
+      "name_kn": "ಗೋಧಿ (Wheat)",
+      "scientific_name": "Triticum aestivum",
+      "category": "cereal",
+      "major_districts": ["Dharwad", "Belagavi", "Bagalkot", "Vijayapura", "Gadag"],
+      "soil_suitability": ["Black cotton soil (ಕಪ್ಪು ಮಣ್ಣu)", "Heavy clay loam"],
+      "ph_range": [6.0, 7.5],
+      "major_diseases": [
+        {"id": "wheat_stripe_rust", "name_en": "Stripe Rust / Yellow Rust (Puccinia striiformis)", "name_kn": "ಹಳದಿ ಪಟ್ಟೆ ತುಕ್ಕು ರೋಗ", "symptoms": "Narrow yellow stripes of small pustules along leaf veins."},
+        {"id": "wheat_leaf_rust", "name_en": "Brown / Leaf Rust (Puccinia triticina)", "name_kn": "ಕಂದು ತುಕ್ಕು ರೋಗ", "symptoms": "Round to oval scattered reddish-brown pustules on upper surface of leaves."}
+      ],
+      "major_pests": [
+        {"id": "wheat_aphids", "name_en": "Wheat Aphids", "name_kn": "ಸಸ್ಯಹೇನು"}
+      ]
+    },
+    "all_other_crops": {
+      "id": "all_other_crops",
+      "name_en": "Extensible Crops (Sorghum, Groundnut, Pigeonpea, Chickpea, Coffee, Chilli)",
+      "name_kn": "ಇತರ ಬೆಳೆಗಳು (ಜೋಳ, ಶೇಂಗಾ, ತೊಗರಿ, ಕಡಲೆ, ಕಾಫಿ, ಮೆಣಸಿನಕಾಯಿ)",
+      "scientific_name": "Various species",
+      "category": "extensible",
+      "major_districts": ["All 31 districts of Karnataka"],
+      "soil_suitability": ["All major Karnataka soil types"],
+      "ph_range": [5.0, 8.5],
+      "major_diseases": [],
+      "major_pests": []
+    }
+  }
+}
