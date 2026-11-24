@@ -97,7 +97,7 @@ async def analyze_photo(
     """
     contents = await file.read()
     filename = file.filename or "crop_photo.jpg"
-    diag = analyze_crop_image(contents, filename=filename)
+    diag = analyze_crop_image(contents, filename=filename, lang=lang, district=district)
 
     is_kn = (lang == "kn")
     image_type = diag.get("image_type", "leaf")

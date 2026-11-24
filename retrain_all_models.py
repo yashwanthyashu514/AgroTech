@@ -242,6 +242,13 @@ bundle = {
 joblib.dump(bundle, os.path.join(OUT, "weather_model_karnataka.pkl"), compress=3)
 print(f"   Saved â†’ models_store/weather_model_karnataka.pkl  [{time.time()-t0:.0f}s]")
 
-print(f"\nâœ…  ALL MODELS SAVED to backend/models_store/")
+print(f"\n[4/4] Agricultural Vision Models (Plants, Diseases, Soils, Pests) ...")
+try:
+    from training.train_all_vision_models import run_all_vision_training
+    run_all_vision_training()
+except Exception as e:
+    print(f"Vision models training note: {e}")
+
+print(f"\n✅  ALL MODELS SAVED to backend/models_store/")
 print(f"   Total time: {(time.time()-t_total)/60:.1f} min")
 

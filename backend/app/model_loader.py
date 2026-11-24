@@ -45,6 +45,7 @@ class ModelRegistry:
             self._load_crop_model()
             self._load_weather_model()
             self._load_yield_model()
+            self._load_vision_models()
             self._load_reference_data()
             self._loaded = True
             logger.info("✅  All models loaded and ready.")
@@ -83,6 +84,17 @@ class ModelRegistry:
         self.yield_features   = bundle["features"]
         self.yield_model_name = bundle.get("model_name", "Unknown")
         logger.info("Yield model: %s", self.yield_model_name)
+
+    def _load_vision_models(self) -> None:
+        p_dir = Path(CROP_MODEL_PATH).parent
+        for m_name in ["plant_vision_model", "disease_vision_model", "soil_vision_model", "pest_vision_model"]:
+            m_path = p_dir / f"{m_name}.pkl"
+            if m_path.exists():
+                try:
+                    setattr(self, m_name, joblib.load(m_path))
+                    logger.info("Loaded vision model: %s", m_name)
+                except Exception as e:
+                    logger.warning("Could not load vision model %s: %s", m_name, e)
 
     def _load_reference_data(self) -> None:
         self.taluk_soil    = pd.read_csv(TALUK_SOIL_CSV)
