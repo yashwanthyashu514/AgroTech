@@ -217,10 +217,10 @@ def generate_rich_vision_dataset(base_dir: Path) -> Tuple[List[str], List[str], 
 
     # 3. Soil profiles dataset (4 types)
     soil_configs = {
-        "black_cotton": ((20, 20, 25), (45, 45, 50), "deep_dark_clay_cracks"),
-        "red_laterite": ((35, 45, 110), (55, 70, 160), "rusty_red_loam"),
-        "sandy_alluvial": ((70, 110, 140), (100, 140, 175), "pale_sandy_silt"),
-        "laterite_hill": ((30, 60, 95), (50, 85, 130), "acidic_gravel_hill"),
+        "black_cotton": ((40, 40, 42), (25, 25, 28), "deep_dark_clay_cracks"),
+        "red_laterite": ((50, 60, 140), (40, 45, 110), "rusty_red_loam"),
+        "sandy_alluvial": ((90, 130, 160), (70, 110, 140), "pale_sandy_silt"),
+        "laterite_hill": ((45, 80, 120), (35, 65, 100), "acidic_gravel_hill"),
     }
     for soil_type, (bgr_min, bgr_max, soil_style) in soil_configs.items():
         soil_dir = base_dir / f"Soil___{soil_type}"
@@ -228,10 +228,7 @@ def generate_rich_vision_dataset(base_dir: Path) -> Tuple[List[str], List[str], 
         for idx in range(1, 16):
             s_img = np.zeros((260, 260, 3), dtype=np.uint8)
             rng = np.random.RandomState(abs(hash(f"{soil_type}_{idx}")) % 100000)
-            base_col = [
-                rng.randint(min(bgr_min[i], bgr_max[i]), max(bgr_min[i], bgr_max[i]) + 1)
-                for i in range(3)
-            ]
+            base_col = [rng.randint(bgr_min[i], bgr_max[i] + 1) for i in range(3)]
             s_img[:, :] = base_col
             # Soil grain texture
             grain = rng.normal(0, 15, s_img.shape).astype(np.int16)
@@ -390,3 +387,4 @@ def run_all_vision_training():
 
 if __name__ == "__main__":
     run_all_vision_training()
+

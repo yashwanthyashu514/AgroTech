@@ -180,16 +180,30 @@ def extract_agri_features(image_input: Union[bytes, str, np.ndarray]) -> Tuple[n
     fruit_avg_area = float(np.mean(fruit_areas)) if fruit_areas else 0.0
     fruit_area_share = float(total_fruit_area / total_pixels)
 
-    # 6. Morphological Leaf Contours
+    # 6. Morphological Leaf & Green Pod Contours
     contours_green, _ = cv2.findContours(mask_green, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     leaf_elongations = []
+    green_pod_elongations = []
     for c in contours_green:
-        if cv2.contourArea(c) > 40:
+        area = cv2.contourArea(c)
+        if area > 40:
             _, _, lw, lh = cv2.boundingRect(c)
             elongation = max(lw, lh) / float(min(lw, lh) + 1e-5)
             leaf_elongations.append(elongation)
+            if elongation > 2.0 and area > 100:
+                green_pod_elongations.append(elongation)
 
     leaf_avg_elongation = float(np.mean(leaf_elongations)) if leaf_elongations else 1.0
+    green_pod_count = len(green_pod_elongations)
+    green_pod_avg_elongation = float(np.mean(green_pod_elongations)) if green_pod_elongations else 1.0
+
+    # Okra specific: light yellow-green ridges on vertical pods
+    okra_rib_mask = (h_channel >= 24) & (h_channel <= 45) & (s_channel >= 35) & (s_channel <= 165) & (v_channel >= 85)
+    okra_rib_ratio = float(np.sum(okra_rib_mask) / total_pixels)
+
+    # Chilli specific: intense saturated green hanging pods
+    chilli_mask = (h_channel >= 30) & (h_channel <= 82) & (s_channel >= 85) & (v_channel >= 45)
+    chilli_green_ratio = float(np.sum(chilli_mask) / total_pixels)
 
     # 7. Texture & Gradients (Gray channel)
     gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
@@ -241,14 +255,35 @@ def extract_agri_features(image_input: Union[bytes, str, np.ndarray]) -> Tuple[n
     feature_vec = np.array(values, dtype=np.float32)
 
     # Boolean flags for semantic routing
-    has_fruits = bool(red_ratio > 0.04 and fruit_count >= 1)
-    is_diseased_leaf = bool(not has_fruits and (yellow_ratio > 0.09 or brown_ratio > 0.05 or dark_ratio > 0.06))
-    is_healthy_fruit = bool(has_fruits and green_ratio > 0.15 and dark_ratio < 0.20)
+    has_ripe_fruits = bool(red_ratio > 0.04 and fruit_count >= 1)
+
+    # Diseased leaf: chlorosis or distinct necrotic spots on foliage (without prominent ripe fruits)
+    is_diseased_leaf = bool(
+        not has_ripe_fruits and (
+            (yellow_ratio > 0.08 and (brown_ratio > 0.025 or dark_ratio > 0.08)) or
+            (brown_ratio > 0.055) or
+            (dark_ratio > 0.12 and green_ratio < 0.70)
+        )
+    )
+
+    # Okra pods: light-ribbed pods on healthy green plants (not chlorotic leaf lesions)
+    has_okra_pods = bool(okra_rib_ratio > 0.045 and green_ratio > 0.35 and not is_diseased_leaf and yellow_ratio < 0.08 and brown_ratio < 0.025)
+    has_chilli_pods = bool(chilli_green_ratio > 0.40 and (green_pod_count >= 1 or green_ratio > 0.60) and not has_okra_pods and not is_diseased_leaf)
+    has_green_pods = bool(has_okra_pods or has_chilli_pods or (green_ratio > 0.65 and green_pod_count >= 1 and not is_diseased_leaf))
+    has_fruits = bool(has_ripe_fruits or has_green_pods)
+    is_healthy_fruit = bool(has_fruits and green_ratio > 0.15 and not is_diseased_leaf)
     is_soil = bool(green_excess < -5.0 and (brown_ratio > 0.20 or dark_ratio > 0.25) and not has_fruits)
     is_pest = bool(dark_ratio > 0.20 and green_excess > 5.0 and not has_fruits and not is_diseased_leaf)
 
     meta = {
         "has_fruits": has_fruits,
+        "has_green_pods": has_green_pods,
+        "has_okra_pods": has_okra_pods,
+        "has_chilli_pods": has_chilli_pods,
+        "okra_rib_ratio": okra_rib_ratio,
+        "chilli_green_ratio": chilli_green_ratio,
+        "green_pod_count": green_pod_count,
+        "green_pod_avg_elongation": green_pod_avg_elongation,
         "is_healthy_fruit": is_healthy_fruit,
         "is_diseased_leaf": is_diseased_leaf,
         "is_soil": is_soil,

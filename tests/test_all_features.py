@@ -64,6 +64,54 @@ assert "Scientific name: Capsicum annuum" in res["reply"]
 assert "Visible characteristics:" in res["reply"]
 
 print("\n" + "=" * 60)
+print("TEST 3b: Feature 1 - Identify Plant Species (User Okra Plant Image)")
+print("=" * 60)
+okra_bytes = pathlib.Path("tests/test_samples/okra_exact_plant.png").read_bytes()
+r = client.post(
+    "/api/v1/plugin/raithanna/feature-action",
+    data={"feature_id": "identify_plant", "lang": "kn", "district": "Davanagere"},
+    files={"file": ("Screenshot 2026-11-24 212224.png", io.BytesIO(okra_bytes), "image/png")}
+)
+print("Status:", r.status_code)
+res = r.json()
+print("Reply Preview:\n", res["reply"])
+assert r.status_code == 200
+assert "ಬೆಂಡೆಕಾಯಿ" in res["reply"] or "Okra" in res["reply"]
+assert "Abelmoschus esculentus" in res["reply"]
+
+print("\n" + "=" * 60)
+print("TEST 3c: Feature 1 - Identify Plant Species (User Green Chilli Plant Image)")
+print("=" * 60)
+green_chilli_bytes = pathlib.Path("tests/test_samples/green_chilli_exact_plant.png").read_bytes()
+r = client.post(
+    "/api/v1/plugin/raithanna/feature-action",
+    data={"feature_id": "identify_plant", "lang": "kn", "district": "Davanagere"},
+    files={"file": ("Screenshot 2026-11-24 212304.png", io.BytesIO(green_chilli_bytes), "image/png")}
+)
+print("Status:", r.status_code)
+res = r.json()
+print("Reply Preview:\n", res["reply"])
+assert r.status_code == 200
+assert "ಮೆಣಸಿನಕಾಯಿ" in res["reply"] or "Chilli" in res["reply"]
+assert "Capsicum annuum" in res["reply"]
+
+print("\n" + "=" * 60)
+print("TEST 3d: Feature 1 - Screenshot Auto-Crop (Okra Full Screenshot)")
+print("=" * 60)
+okra_scr_path = pathlib.Path("C:/Users/YASH/.gemini/antigravity/brain/ccade8ba-9d59-4826-872a-f08f2300413c/.user_uploaded/media_1795535724680_eb7b792c.png")
+if okra_scr_path.exists():
+    r = client.post(
+        "/api/v1/plugin/raithanna/feature-action",
+        data={"feature_id": "identify_plant", "lang": "kn", "district": "Davanagere"},
+        files={"file": ("Screenshot 2026-11-24 212224.png", io.BytesIO(okra_scr_path.read_bytes()), "image/png")}
+    )
+    print("Status:", r.status_code)
+    res = r.json()
+    print("Reply Preview:\n", res["reply"])
+    assert r.status_code == 200
+    assert "ಬೆಂಡೆಕಾಯಿ" in res["reply"] or "Okra" in res["reply"]
+
+print("\n" + "=" * 60)
 print("TEST 4: Feature 2 - Detect Disease (Real Chilli Image - MUST BE HEALTHY MATURE)")
 print("=" * 60)
 r = client.post(

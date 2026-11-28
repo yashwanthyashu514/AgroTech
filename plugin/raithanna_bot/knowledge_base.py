@@ -253,6 +253,36 @@ DISEASE_REMEDIES = {
         "remedy_chemical_kn": "ಸದ್ಯಕ್ಕೆ ರಾಸಾಯನಿಕ ಅಗತ್ಯವಿಲ್ಲ. ಮುಂಜಾನೆ ತಂಪಿನಲ್ಲಿ ಹಣ್ಣುಗಳನ್ನು ಕಟಾವು ಮಾಡಿ.",
         "remedy_chemical_en": "No chemical spray needed. Harvest mature firm fruits in cool morning hours.",
     },
+    "okra_healthy_mature": {
+        "name_kn": "ಆರೋಗ್ಯಕರ ಬೆಂಡೆಕಾಯಿ ಬೆಳೆ (Healthy Okra Crop)",
+        "name_en": "Healthy Okra Crop with Mature Green Pods",
+        "symptoms_kn": "ಗಿಡಗಳು ಆರೋಗ್ಯಕರವಾಗಿದ್ದು, ಎಳೆಯ ಹಸಿರು ಬೆಂಡೆಕಾಯಿಗಳು ಕಟಾವಿಗೆ ಸಿದ್ಧವಾಗಿವೆ. ಯಾವುದೇ ಕೀಟ ಅಥವಾ ರೋಗದ ಬಾಧೆಯಿಲ್ಲ.",
+        "symptoms_en": "Vigorous crop growth with tender, healthy ribbed green pods ready for harvesting. Free from leaf curl or yellow veins.",
+        "remedy_organic_kn": "ಪ್ರತಿ 3-4 ದಿನಕ್ಕೊಮ್ಮೆ ಎಳೆಯ ಕಾಯಿಗಳನ್ನು ಕಟಾವು ಮಾಡಿ. ಮುನ್ನೆಚ್ಚರಿಕೆಯಾಗಿ 10,000 ppm ಬೇವಿನ ಎಣ್ಣೆ 2 ಮಿ.ಲೀ/ಲೀಟರ್ ನೀರಿಗೆ ಸಿಂಪಡಿಸಿ.",
+        "remedy_organic_en": "Harvest tender pods every 3-4 days to promote continuous fruiting. Apply preventive spray of Neem oil 10,000 ppm @ 2 ml/L.",
+        "remedy_chemical_kn": "ಯಾವುದೇ ರಾಸಾಯನಿಕ ಕೀಟನಾಶಕ ಅಗತ್ಯವಿಲ್ಲ. ಲಘು ಪೋಷಕಾಂಶಗಳ ಸಿಂಪಡಣೆ (19:19:19 5 ಗ್ರಾಂ/ಲೀಟರ್) ಮಾಡಿ.",
+        "remedy_chemical_en": "No chemical pesticides required. Foliar spray of balanced 19:19:19 @ 5 g/L sustains pod setting.",
+    },
+    "okra_yellow_vein_mosaic": {
+        "name_kn": "ಬೆಂಡೆಯ ಹಳದಿ ನರ ರೋಗ (Yellow Vein Mosaic Virus - YVMV)",
+        "name_en": "Okra Yellow Vein Mosaic Virus (YVMV)",
+        "symptoms_kn": "ಎಲೆಗಳ ನರಗಳು ಹಳದಿಯಾಗುವುದು, ಕ್ರಮೇಣ ಇಡೀ ಎಲೆ ಹಳದಿ-ಬಿಳಿ ಬಣ್ಣಕ್ಕೆ ತಿರುಗಿ ಕಾಯಿಗಳು ಸಣ್ಣದಾಗಿ ಬಿಳಿಚಿಕೊಳ್ಳುವುದು.",
+        "symptoms_en": "Network of bright yellow veins on leaves, severe chlorosis, stunted growth, small chlorotic and hardened pods.",
+        "remedy_organic_kn": "ರೋಗ ಹರಡುವ ಬಿಳಿ ನೊಣ (Whitefly) ನಿಯಂತ್ರಿಸಲು ಎಕರೆಗೆ 10-12 ಹಳದಿ ಜಿಗುಟು ಬಲೆಗಳನ್ನು (Yellow Sticky Traps) ಅಳವಡಿಸಿ. ಬೇವಿನ ಎಣ್ಣೆ ಸಿಂಪಡಿಸಿ.",
+        "remedy_organic_en": "Install 10-12 yellow sticky traps per acre to trap whitefly vectors. Spray NSKE 5% or neem oil @ 3 ml/L.",
+        "remedy_chemical_kn": "ಬಿಳಿ ನೊಣ ನಿಯಂತ್ರಣಕ್ಕೆ ಅಸಿಟಾಮಿಪ್ರಿಡ್ 20% ಎಸ್.ಪಿ 0.5 ಗ್ರಾಂ/ಲೀಟರ್ ಅಥವಾ ಡಯಾಫೆಂಥಿಯುರಾನ್ 50% ಡಬ್ಲ್ಯೂ.ಪಿ 1 ಗ್ರಾಂ/ಲೀಟರ್ ಸಿಂಪಡಿಸಿ.",
+        "remedy_chemical_en": "Control whitefly vector by spraying Acetamiprid 20% SP @ 0.5 g/L or Diafenthiuron 50% WP @ 1.0 g/L.",
+    },
+    "okra_fruit_borer": {
+        "name_kn": "ಬೆಂಡೆಕಾಯಿ ಕೊರೆಯುವ ಹುಳು (Okra Fruit Borer / Earias vittella)",
+        "name_en": "Okra Shoot and Fruit Borer (Earias vittella)",
+        "symptoms_kn": "ಸುಳಿ ಒಣಗುವುದು, ಕಾಯಿಗಳಲ್ಲಿ ರಂಧ್ರ ಕೊರೆದು ಮಲ ತ್ಯಾಜ್ಯ ಹೊರಬರುವುದು, ಕಾಯಿಗಳು ಡೊಂಕಾಗುವುದು.",
+        "symptoms_en": "Withering and drooping of terminal shoots, bore holes plugged with excreta in fruits, deformed pods.",
+        "remedy_organic_kn": "ಬಾಧಿತ ಸುಳಿ ಮತ್ತು ಕಾಯಿಗಳನ್ನು ಕಿತ್ತು ನಾಶಮಾಡಿ. ಹೆಲಿ-ಲ್ಯೂರ್ ಮೋಹಕ ಬಲೆಗಳನ್ನು (Pheromone Traps) ಎಕರೆಗೆ 5 ಅಳವಡಿಸಿ.",
+        "remedy_organic_en": "Clip and destroy bored shoots and fruits. Install 5 pheromone traps per acre with Earias lures.",
+        "remedy_chemical_kn": "ಎಮಾಮೆಕ್ಟಿನ್ ಬೆಂಜೋಯೆಟ್ 5% ಎಸ್.ಜಿ 0.4 ಗ್ರಾಂ/ಲೀಟರ್ ಅಥವಾ ಕ್ಲೋರಾಂಟ್ರಾನಿಲಿಪ್ರೋಲ್ 18.5% ಎಸ್.ಸಿ 0.3 ಮಿ.ಲೀ/ಲೀಟರ್ ಸಿಂಪಡಿಸಿ.",
+        "remedy_chemical_en": "Spray Emamectin Benzoate 5% SG @ 0.4 g/L or Chlorantraniliprole 18.5% SC @ 0.3 ml/L water.",
+    },
 }
 
 # ── Plant Identification Database ─────────────────────────────────────────────
@@ -265,13 +295,13 @@ PLANT_DATABASE = {
         "family": "Solanaceae",
         "characteristics": "Branching herbaceous plant, simple ovate leaves, white flowers, pungent elongated berries.",
         "characteristics_list_en": [
-            "Numerous slender, elongated red chilli fruits.",
+            "Numerous slender, elongated green or red chilli fruits.",
             "Green, branching stems.",
             "Narrow green leaves.",
             "Fruits at different stages of maturity."
         ],
         "characteristics_list_kn": [
-            "ಎಲೆಗಳ ನಡುವೆ ಕಟಾವಿಗೆ ಸಿದ್ಧವಾಗಿರುವ ಉದ್ದನೆಯ ಕೆಂಪು ಮೆಣಸಿನಕಾಯಿಗಳು.",
+            "ಎಲೆಗಳ ನಡುವೆ ನೇತಾಡುವ ಉದ್ದನೆಯ ಹಸಿರು ಅಥವಾ ಕೆಂಪು ಮೆಣಸಿನಕಾಯಿಗಳು.",
             "ದಟ್ಟ ಹಸಿರು ಕವಲೊಡೆದ ಕಾಂಡ ಹಾಗೂ ರೆಂಬೆಗಳು.",
             "ಚೂಪಾದ ಕಿರಿದಾದ ಹಸಿರು ಎಲೆಗಳು.",
             "ವಿಭಿನ್ನ ಪಕ್ವತೆಯ ಹಂತದಲ್ಲಿರುವ ಕಾಯಿಗಳು."
@@ -376,6 +406,30 @@ PLANT_DATABASE = {
         "seasons": "Kharif (June-July)",
         "soil": "Deep black cotton soil (Vertisols), pH 7.0-8.5",
         "spacing": "90 cm x 60 cm (Bt Hybrid)",
+    },
+    "okra": {
+        "name_en": "Okra / Ladies Finger plant",
+        "name_kn": "ಬೆಂಡೆಕಾಯಿ ಗಿಡ (Okra / Bhendi)",
+        "name_hi": "भिंडी का पौधा",
+        "scientific_name": "Abelmoschus esculentus",
+        "family": "Malvaceae",
+        "characteristics": "Erect annual herb with 5-8 ribbed conical green pods pointing upwards, palmately 3-7 lobed leaves, yellow hibiscus-like flowers with crimson centers.",
+        "characteristics_list_en": [
+            "Erect, ribbed, conical green pods pointing upwards.",
+            "Broad palmately lobed leaves with 3 to 7 lobes.",
+            "Stout semi-woody branching stem with coarse hairs.",
+            "Yellow hibiscus-like flowers with dark crimson or purple centers."
+        ],
+        "characteristics_list_kn": [
+            "ಮೇಲ್ಮುಖವಾಗಿ ಬೆಳೆಯುವ ಉದ್ದನೆಯ ಹಸಿರು ಬೆಂಡೆಕಾಯಿಗಳು (5-8 ಅಂಚುಗಳ ಕಾಯಿಗಳು).",
+            "ಅಗಲವಾದ ಸೀಳುಗಳುಳ್ಳ ಅಂಗೈ ಆಕಾರದ ಹಸಿರು ಎಲೆಗಳು.",
+            "ಗಟ್ಟಿಯಾದ ರೋಮಯುಕ್ತ ನೇರ ಕಾಂಡ.",
+            "ಕಡು ಕೆಂಪು ಕೇಂದ್ರಬಿಂದುವುಳ್ಳ ಹಳದಿ ಬಣ್ಣದ ಹೂವುಗಳು."
+        ],
+        "districts": "Belagavi, Haveri, Davanagere, Kolar, Bagalkot, Dharwad, Chikkaballapura",
+        "seasons": "Kharif (June-July), Summer (Feb-March)",
+        "soil": "Sandy loam to clay loam rich in organic matter, pH 6.0-7.5",
+        "spacing": "60 cm x 30 cm",
     },
     "sugarcane": {
         "name_en": "Sugarcane crop",
